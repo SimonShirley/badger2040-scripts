@@ -226,7 +226,7 @@ def make_badges_folder_if_not_exists():
 def get_list_of_badge_files():
     # Load all available badge Files
     try:
-        BADGES = [f for f in os.listdir("/badges") if f.endswith(".txt")]
+        BADGES = [f for f in os.listdir(BADGE_DIR) if f.endswith(".txt")]
     except OSError:
         pass
 

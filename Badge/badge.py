@@ -264,13 +264,15 @@ jpeg = jpegdec.JPEG(display.display)
 png = pngdec.PNG(display.display)
 
 set_state_current_index_in_range()
-changed = not badger2040.woken_by_button()
+changed = True
 
 # ------------------------------
 #       Main program
 # ------------------------------
 
 while True:
+    # Sometimes a button press or hold will keep the system
+    # powered *through* HALT, so latch the power back on.
     display.keepalive();
     
     if TOTAL_BADGES > 1:
@@ -283,6 +285,10 @@ while True:
             if state["current_badge"] < TOTAL_BADGES - 1:
                 state["current_badge"] += 1
                 changed = True
+                
+    if display.pressed(badger2040.BUTTON_B):
+        # Refresh the screen
+        changed = True
 
     if changed:
         draw_badge(state["current_badge"])

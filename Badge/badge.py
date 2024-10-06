@@ -177,15 +177,22 @@ def draw_badge(n):
     display.set_pen(0)
     display.set_font(FONT_SANS)
     display.set_thickness(PEN_THICKNESS_4)
-    name_size = 2.0  # A sensible starting scale
+    # name_size = 2.0  # A sensible starting scale
     
-    while True:
-        name_length = display.measure_text(name, name_size)            
-        if name_length >= (TEXT_WIDTH - NAME_PADDING) and name_size >= 0.1:
-            name_size -= 0.01
-        else:                
-            display.text(name, (TEXT_WIDTH - name_length) // 2, (NAME_HEIGHT // 2) + COMPANY_HEIGHT + 1, WIDTH, name_size)
-            break
+    # Calculate the maximum size to fit the name text in the space
+#    while True:
+#        name_length = display.measure_text(name, name_size)
+#        
+#        if name_length >= (TEXT_WIDTH - NAME_PADDING) and name_size >= 0.1:
+#            name_size -= 0.01
+#        else:
+#            display.text(name, (TEXT_WIDTH - name_length) // 2, (NAME_HEIGHT // 2) + COMPANY_HEIGHT + 1, WIDTH, name_size)
+#            break
+
+    # Hard code size values
+    name_length = 168
+    name_size = 1.0
+    display.text(name, (TEXT_WIDTH - name_length) // 2, (NAME_HEIGHT // 2) + COMPANY_HEIGHT + 1, WIDTH, name_size)
 
     # Draw a white backgrounds behind the details
     display.set_pen(15)

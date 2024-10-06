@@ -4,6 +4,7 @@ import badger_os
 import os
 import jpegdec
 import pngdec
+import gc
 
 # Multiple badge text and image files supported. All files to be placed in newly created '/badges/' folder.
 # Associated image files to be named the same as the text file.
@@ -84,7 +85,7 @@ def draw_badge(n):
         
     file = BADGES[n]
     badge_text_file_path = ""
-    image_text_file_path = ""
+    image_file_path = ""
     company = ""
     name = ""
     detail1_title = ""
@@ -127,18 +128,27 @@ def draw_badge(n):
     
     # Try and import image related to txt file
     image_filename = str(file).split(".")[0] + ".jpg"
-    image_text_file_path = f"{BADGE_DIR}/{image_filename}"
+    image_file_path = f"{BADGE_DIR}/{image_filename}"
     
-    if image_filename in os.listdir(BADGE_DIR):
-        jpeg.open_file(image_text_file_path)
-        jpeg.decode(WIDTH - IMAGE_WIDTH, 0)
-    else:
-        image_filename = str(file).split(".")[0] + ".png"
-        image_text_file_path = f"{BADGE_DIR}/{image_filename}"
-        
+    try:
         if image_filename in os.listdir(BADGE_DIR):
-            png.open_file(image_text_file_path)
-            png.decode(WIDTH - IMAGE_WIDTH, 0)
+            with open(image_file_path, "rb") as jpeg_file:
+                jpeg_file_bytes = jpeg_file.read()
+                jpeg.open_RAM(jpeg_file_bytes)
+                jpeg.decode(WIDTH - IMAGE_WIDTH, 0)
+        else:
+            image_filename = str(file).split(".")[0] + ".png"
+            image_file_path = f"{BADGE_DIR}/{image_filename}"
+            
+            if image_filename in os.listdir(BADGE_DIR):
+                with open(image_file_path, "rb") as png_file:
+                    png_file_bytes = png_file.read()
+                    png.open_RAM(png_file_bytes)
+                    png.decode(WIDTH - IMAGE_WIDTH, 0)
+    except:
+        pass
+    
+    gc.collect()
             
     # Draw a border around the image
     display.set_pen(0)

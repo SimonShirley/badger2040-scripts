@@ -134,8 +134,12 @@ def draw_badge(n):
         if image_filename in os.listdir(BADGE_DIR):
             with open(image_file_path, "rb") as jpeg_file:
                 jpeg_file_bytes = jpeg_file.read()
+                
+                jpeg = jpegdec.JPEG(display.display)
                 jpeg.open_RAM(jpeg_file_bytes)
                 jpeg.decode(WIDTH - IMAGE_WIDTH, 0)
+                
+                del jpeg
         else:
             image_filename = str(file).split(".")[0] + ".png"
             image_file_path = f"{BADGE_DIR}/{image_filename}"
@@ -143,13 +147,18 @@ def draw_badge(n):
             if image_filename in os.listdir(BADGE_DIR):
                 with open(image_file_path, "rb") as png_file:
                     png_file_bytes = png_file.read()
+                    
+                    png = pngdec.PNG(display.display)
                     png.open_RAM(png_file_bytes)
                     png.decode(WIDTH - IMAGE_WIDTH, 0)
+                    
+                    del png
     except:
         pass
     
     gc.collect()
-            
+    
+
     # Draw a border around the image
     display.set_pen(0)
     display.set_thickness(1)
@@ -276,9 +285,6 @@ display = badger2040.Badger2040()
 display.led(128)
 display.set_update_speed(badger2040.UPDATE_NORMAL)
 display.set_thickness(2)
-
-jpeg = jpegdec.JPEG(display.display)
-png = pngdec.PNG(display.display)
 
 set_state_current_index_in_range()
 changed = True

@@ -5,6 +5,10 @@ For more information about the Badger2040 and the Badger2040w, visit their websi
 
 They may also be able to be run on a badger2040w but I don't currently own one, so feel free to try at your own risk.
 
+## Disclaimer
+These scripts are not endorsed, nor verified by Pimoroni and as such, Pimoroni have no responsibility over the quality or
+functionings within them. You are free to use and modify but these are custom scripts, and to be treated as such.
+
 
 ## LICENSE
 MIT License

@@ -1,9 +1,10 @@
 # badger2040-scripts
-Personal code examples to run on a Pimoroni Badger2040
-
-These code examples are personal code examples that can be run on a Pimoroni Badger2040.
+Personal code examples that can be run on a Pimoroni Badger2040
 
 For more information about the Badger2040 and the Badger2040w, visit their website: https://pimoroni.com/badger2040
+
+They may also be able to be run on a badger2040w but I don't currently own one, so feel free to try at your own risk.
+
 
 ## LICENSE
 MIT License
